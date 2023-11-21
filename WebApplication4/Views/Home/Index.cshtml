@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Accueil";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Bienvenue</h1>
+    <div class="row">
+        <div class="d-md-flex">
+            <div class="container">
+                <div class="row">
+                    <hr />
+                    <p>
+                        <h4 class="mb-3 text-center">Rapports</h4>
+                    </p>
+                </div>
+                <div class="row">
+                    <a class="btn btn-success mb-4" asp-controller="Home" asp-action="CreateReport">Créer un rapport</a>
+                    <a class="btn btn-primary" asp-action="MyReports">Mes rapports</a>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="row">
+                    <p>
+                        <h4 class="mb-3 text-center">Témoignages</h4>
+                    </p>
+                </div>
+                <div class="row">
+                    <a class="btn btn-success mb-4" asp-action="CreateTestimony">Témoigner</a>
+                    <br />
+                    <a class="btn btn-primary" asp-action="MyTestimony">Mes témoignages</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

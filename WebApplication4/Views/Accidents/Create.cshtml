@@ -1,0 +1,152 @@
+﻿@model WebApplication4.Models.Accident
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="row">
+<link rel="stylesheet" href="~/css/multiStepForm.css" asp-append-version="true" />
+    <div class="col-md-12">
+        <form id="formCreate" method="post" asp-action="Create">
+            <div style="margin-top:40px;" class="breadcrumb justify-content-center">
+                <ol class="breadcrumb">
+                    <span class="step screenAccident" onclick="showPage('screenAccident')">Accident</span>
+                    <span class="step screenProbability" onclick="showPage('screenProbability')">Probabilité</span>
+                    <span class="step screenLocation" onclick="showPage('screenLocation')">Lieu</span>
+                    <span class="step screenDeviations" onclick="showPage('screenDeviations')">Déviations</span>
+                    <span class="step screenAgentsMateriels" onclick="showPage('screenAgentsMateriels')">Agents Matériels</span>
+                    <span class="step screenCause" onclick="showPage('screenCause')">Causes Fondamentales</span>
+                    <span class="step screenMesures" onclick="showPage('screenMesures')">Mesures Directes</span>
+                    <span class="step screenProposedMesures" onclick="showPage('screenProposedMesures')">Mesures Proposées</span>
+                </ol>
+            </div>
+            <div class="tab screenAccident">
+                <br />
+                <div class="row">
+                    <hr />
+                    <p>
+                        <h4 class="mb-3 text-center">Informations générales sur l'accident</h4>
+                    </p>
+                    <hr />
+                </div>
+                
+                <div class="row">
+                    <div class="d-md-flex">
+                        <div class="col-md-4">
+                            Type de l'accident :
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Type" id="withStopWorking" value="Accident avec arrêt de travail" checked>
+                                <label class="form-check-label" for="withStopWorking">Accident avec arrêt de travail</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Type" id="noStopWorking" value="Premiers soins sans arrêt de travail">
+                                <label class="form-check-label" for="noStopWorking">Premiers soins sans arrêt de travail</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Type" id="noContact" value="Incident sans contact">
+                                <label class="form-check-label" for="noContact">Incident sans contact</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="d-md-flex">
+                        <div class="col-md-4">
+                            Précisez la date et l'heure de l'accident :
+                        </div>
+                        <div class="col-md-8 text-center">
+                            <input asp-for="AccidentDateTime" type="datetime-local" class="form-control"/>
+                        </div>
+                    </div>
+                </div>
+
+                <br />
+
+                <div class="row">
+                    <div class="d-md-flex">
+                        <div class="col-md-4">
+                            Réaction imédiate après les fait :
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline" >
+                                <input class="form-check-input" type="radio" name="Reaction" id="firstCare" value="Premiers soins sur place" checked>
+                                <label class="form-check-label" for="firstCare">Premiers soins sur place</label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Reaction" id="hospital" value="Évacuation vers l'hôpital">
+                                <label class="form-check-label" for="hospital">Évacuation vers l'hôpital</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab screenProbability">
+                @{
+                    await Html.RenderPartialAsync("Probability.cshtml");
+                }
+            </div>
+            <div class="tab screenLocation">
+                @{
+                    await Html.RenderPartialAsync("Location.cshtml");
+                }
+            </div>
+            <!--Ici j'ai besoin d'un id de tabDeviation-->
+            <!--Il y a une forte dépendance entre Deviation et AgentMateriel, ils utilisent les memes fonctiones dans le js, donc render d'abord agentMat et puis Deviation pourque tout fonctionne
+                Render un des deux fontionnes pas (encore)
+            -->
+            <div class="tab screenDeviations" id="tabDeviation">
+                @{
+                    await Html.RenderPartialAsync("Deviation.cshtml");
+                }
+            </div>
+            <div class="tab screenAgentsMateriels" id="tabAgentMateriel">
+                @{
+                    await Html.RenderPartialAsync("AgentMateriel.cshtml");
+                }
+            </div>
+
+            <div class="tab screenCause">
+                @{
+                    await Html.RenderPartialAsync("AccidentFundamentaryCause.cshtml");
+                }
+            </div>
+
+            <div class="tab screenMesures">
+                @{
+                    await Html.RenderPartialAsync("AccidentDirectMesures.cshtml");
+                }
+            </div>
+            <div class="tab screenProposedMesures">
+                @{
+                    await Html.RenderPartialAsync("AccidentProposedMesures.cshtml");
+                }
+            </div>
+            <div style="overflow:auto;">
+                <div style="float:right;">
+                    <button type="button" class="btn btn-secondary" id="prevBtn" onclick="nextPrev(-1)">Précédent</button>
+                    <button type="button" class="btn btn-success" id="nextBtn" onclick="nextPrev(1)">Suivant</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script type="text/javascript" src="@Url.Content("~/js/multiStepForm.js")"></script>

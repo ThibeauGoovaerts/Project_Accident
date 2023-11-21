@@ -1,0 +1,80 @@
+﻿<hr />
+<div class="row">
+    <div class="d-md-flex">
+        <div class="col-md-8">
+            La victime a-t-elle eu un arrêt de travail ?
+        </div>
+        <div class="col-md-4 ps-5">
+            <label>Non</label>
+            <label class="toggleSwitch">
+                <input class="tabulation_needed" name="WorkStopped" id="workStopped" value="false" type="checkbox" onclick="changePauseVisibility('Pause'); changeIsNecessary(['DateTimeWorkStopped', 'workStopped'])" onchange="saveLocally('workStopped')" />
+                <span class="slider"></span>
+            </label>
+            <label for="workStopped"><p>Oui</p></label>
+        </div>
+    </div>
+</div>
+<br />
+<div id="workPause" class="d-none">
+    <div class="row">
+        <div class="d-md-flex">
+            <div class="col-md-7">
+                Précisez la date et l'heure du début de l'arrêt de travail :
+            </div>
+            <div class="col-md-5 text-center">
+                <input name="DateTimeWorkStopped" id="DateTimeWorkStopped" type="datetime-local" class="form-control tabulation_needed" onfocusout="saveLocally('DateTimeWorkStopped')" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="d-md-flex">
+            <div class="col-md-8">
+                La victime a-t-elle repris le travail après l'accident ?
+            </div>
+            <div class="col-md-4 ps-5">
+                <label>Non</label>
+                <label class="toggleSwitch">
+                    <input class="tabulation_needed" name="WorkResumed" value="false" id="workResumed" type="checkbox" onclick="changePauseVisibility('Resume'); changeIsNecessary(['DateTimeWorkResumed', 'workResumed'])" onchange="saveLocally('workResumed')" />
+                    <span class="slider"></span>
+                </label>
+                <label for="workResumed"><p>Oui</p></label>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div id="workResume" class="row d-none">
+        <div class="d-md-flex">
+            <div class="col-md-7">
+                Précisez la date et l'heure de la fin de l'arrêt de travail :
+            </div>
+            <div class="col-md-5 text-center">
+                <input name="DateTimeWorkResumed" id="DateTimeWorkResumed" type="datetime-local" class="form-control tabulation_needed" onfocusout="saveLocally('DateTimeWorkResumed')" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- End WorkPause-->
+
+<script>
+    function changePauseVisibility(input) {
+        if (input == "Pause") {
+            let element = document.getElementById("workPause");
+            let checkbox = document.getElementById("workStopped");
+            if (checkbox.checked) {
+                element.classList.remove("d-none");
+            } else {
+                element.classList.add("d-none");
+            }
+        } else {
+            let element = document.getElementById("workResume");
+            let checkbox = document.getElementById("workResumed");
+            if (checkbox.checked) {
+                element.classList.remove("d-none");
+            } else {
+                element.classList.add("d-none");
+            }
+        }
+    }
+</script>

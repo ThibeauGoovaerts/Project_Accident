@@ -1,0 +1,75 @@
+﻿body {
+}
+
+.human-body {
+    position: relative;
+}
+
+.human-body-content {
+    margin-left:25%;
+    width: 100%;
+}
+
+.human-body-left {
+    border-right: 1px black solid;
+}
+
+.human-body-img {
+    filter: opacity(30%);
+}
+
+.head {
+    margin-left: 95px;
+}
+
+.neck {
+    margin-left: 50px;
+    margin-top: -6px;
+}
+
+.chest {
+    margin-left: 65px;
+}
+
+.back {
+    margin-left: 61px;
+    margin-top: -19px;
+    display: none;
+}
+
+.armLeft {
+    margin-left: -35px;
+    position: absolute;
+    margin-top: -257px;
+}
+
+.armRight {
+    margin-left: 229px;
+    position: absolute;
+    margin-top: -248px;
+}
+
+.legs {
+    margin-left: 65px;
+}
+
+    .head:hover, .neck:hover, .chest:hover, .back:hover, .legs:hover {
+        filter: opacity(100%);
+    }
+
+.button-body {
+    width: 100%;
+}
+
+.indeterminateLesionSeat label{
+    width: 100%;
+}
+
+.arrowLeftLesions {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 3px;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
+}

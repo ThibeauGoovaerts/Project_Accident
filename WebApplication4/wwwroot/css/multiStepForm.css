@@ -1,0 +1,125 @@
+﻿.tab {
+    display: none;
+}
+.step{
+    cursor: pointer;
+}
+.breadcrumb {
+    padding: 0.5rem;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    font-size: 18px;
+}
+.breadcrumb ol{
+    border: 0.1em solid #cbd2d9;
+    border-radius: 0.3rem;
+    display: inline-flex;
+    overflow: hidden;
+    margin: auto;
+    padding-left: 0.2em;
+}
+
+.breadcrumb ol span {
+    background: #fff;
+    color: #333;
+    outline: none;
+    padding: 0em 1.5em 0em 1.5em;
+    position: relative;
+    text-decoration: none;
+    transition: background 0.2s linear;
+}
+
+
+.breadcrumb ol span:after {
+    background: white;
+    bottom: 0;
+    clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+    content: "";
+    left: 100%;
+    position: absolute;
+    top: 0;
+    transition: background 0.2s linear;
+    width: 1em;
+    z-index: 1;
+}
+
+.breadcrumb ol span.bg-danger:after {
+    background: #dc3545;
+    bottom: 0;
+    clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+    content: "";
+    left: 100%;
+    position: absolute;
+    top: 0;
+    transition: background 0.2s linear;
+    width: 1em;
+    z-index: 1;
+}
+.breadcrumb ol span.bg-success:after {
+    background: #198754;
+    bottom: 0;
+    clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+    content: "";
+    left: 100%;
+    position: absolute;
+    top: 0;
+    transition: background 0.2s linear;
+    width: 1em;
+    z-index: 1;
+}
+.breadcrumb ol span.bg-primary:after {
+    background: #0d6efd;
+    bottom: 0;
+    clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+    content: "";
+    left: 100%;
+    position: absolute;
+    top: 0;
+    transition: background 0.2s linear;
+    width: 1em;
+    z-index: 1;
+}
+.breadcrumb ol span:before {
+    background: transparent;
+    bottom: 0;
+    clip-path: polygon(50% 50%, -50% -50%, 0 100%);
+    content: "";
+    left: 100%;
+    position: absolute;
+    top: 0;
+    transition: background 0.2s linear;
+    width: 1em;
+    z-index: 1;
+}
+
+.breadcrumb ol span:before {
+    background: #cbd2d9;
+    margin-left: 0.1rem; 
+}
+
+.breadcrumb ol span:last-child:before{
+    clip-path: polygon(0% 0%, -0% -0%, 0 100%);
+}
+
+.breadcrumb ol span:last-child:after {
+    background: transparent;  
+}
+
+.breadcrumb ol span.bg-primary {
+    color: #f3f5fa;
+}
+
+.breadcrumb ol span.bg-success {
+    color: #f3f5fa;
+}
+
+.breadcrumb ol span.bg-danger{
+    color: #f3f5fa
+}
+
+.breadcrumb ol svg{
+    margin: auto;
+    width: 2em; 
+    height:auto;
+}

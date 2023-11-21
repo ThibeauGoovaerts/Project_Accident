@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.btn-previous {
+    position: fixed;
+    top: 50%;
+    left: 1%;
+}
+
+.btn-next {
+    position: fixed;
+    top: 50%;
+    left:94%;
+}
+
+.btn-direction {
+    border-radius: 3rem;
+    padding: 0.5rem;
+}

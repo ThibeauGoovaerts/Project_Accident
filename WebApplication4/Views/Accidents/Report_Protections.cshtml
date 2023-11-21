@@ -1,0 +1,28 @@
+﻿
+<link rel="stylesheet" href="~/css/protection.css" asp-append-version="true" />
+
+<div class="form-group">
+    <div class="container">
+        <div class="col-md-8">
+            Quelle(s) protection(s) la victime portait-elle?
+        </div>
+        <div class="row">
+            <div class="col">
+                <input type="checkbox" class="checkboxProtections necessaryField check-protections" value="protection_aucune" id="protection_aucune" onclick="noneChosen('check-protections'); changeIsNecessaryCheckoxList('check-protections')"/>
+                <label class="labelProtections" for="protection_aucune"><img src="~/img/securityitem11.png"/></label>
+                <p style="font-weight: bold;">Aucune</p>
+            </div>
+            @foreach (Protection protection in ViewBag.protections) {
+                {
+                    var path = "~/img/securityitem" + protection.ID + ".png";
+                        <div class="col">
+                        <input type="checkbox" class="checkboxProtections tabulation_needed necessaryField check-protections" onclick="someChosen(); changeIsNecessaryCheckoxList('check-protections')" name="protectionsVictim" value="@protection.Label" id="@protection.Label" onchange="saveLocallyCustom(this.id, 'protection')" />
+                                <label class="labelProtections" for="@protection.Label"><img src='@Url.Content(@path)' /></label>
+                            <p style="font-size: 20px; font-weight: bold;">@protection.Label</p>
+                        </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="@Url.Content("~/js/protections.js")"></script>

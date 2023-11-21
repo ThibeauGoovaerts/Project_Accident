@@ -1,0 +1,67 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model WebApplication4.Models.Accident
+
+<div class="row">
+    <div class="d-md-flex">
+        <div class="col-md-8">
+            Avez-vous vu l'accident ?
+        </div>
+        <div class="col-md-4 ps-5">
+            <label>Non</label>
+            <label class="toggleSwitch">
+                <input class="tabulation_needed" value="true" type="checkbox" id="WasPresent" name="WasPresent" onchange="saveLocally('WasPresent')" onclick="changeIsNecessary(['WasPresent'])" checked />
+                <span class="slider"></span>
+            </label>
+            <label for="WasPresent"><p>Oui</p></label>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="d-md-flex">
+        <div class="col-lg-6">
+            Précisions sur l'accident :
+            <div class="hover-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                </svg>
+                <span class="tooltip-text" id="bottomSpanTooltip">
+                    <p style="list-style: none;">
+                        Si vous n'avez pas vu l'accident, expliquez ce que vous faisiez.
+                    </p>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <textarea name="Testimony" class="form-control tabulation_needed necessaryField" id="testimonyAccident" required onfocusout="saveLocally('testimonyAccident')"></textarea>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="d-md-flex">
+        <div class="col-lg-6">
+            Précisez la réaction après l'accident :
+            <div class="hover-text">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                </svg>
+                <span class="tooltip-text" id="bottomSpanTooltip">
+                    <p style="list-style: none;">
+                        Que s'est-il passé après l'accident?
+                    </p>
+                </span>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <textarea asp-for="Reaction" class="form-control tabulation_needed necessaryField" onfocusout="saveLocally('reaction')" id="reaction"></textarea>
+        </div>
+    </div>
+</div>
+<br />

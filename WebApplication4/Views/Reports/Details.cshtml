@@ -1,0 +1,102 @@
+﻿@model WebApplication4.Models.Report
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container">
+    <div>
+        <div class="text-center ">
+            <h1>Résumé du rapport</h1>
+            <br />
+            <h4>@Html.DisplayFor(model => model.Accident.VictimInformation.Person.FirstName) @Html.DisplayFor(model => model.Accident.VictimInformation.Person.LastName) | @Html.DisplayFor(model => model.Accident.AccidentDateTime)</h4>
+        </div>
+    </div>
+    <br />
+
+    <div class="accordion" id="accordionReport">
+        @{
+            if (ViewBag.roleAuthor == 2 && ViewBag.Role >= 2)
+            {
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Informations sur la victime
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionReport">
+                            <div class="accordion-body">
+                                @{
+                                    await Html.RenderPartialAsync("VictimInformationsDetailsReport.cshtml");
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Informations sur l'accident
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionReport">
+                            <div class="accordion-body">
+                                @{
+                                    await Html.RenderPartialAsync("AccidentDetailsReport.cshtml");
+                                }
+                            </div>
+                    </div>
+                </div>
+            }
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed text-white bg-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                        Témoignage(s)
+                    </button>
+                </h2>
+                <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionReport">
+                    <div class="accordion-body">
+                        <div class="row justify-content-center">
+                            @if(ViewBag.role <= 2){
+                                <dd class="col-sm-8">
+                                    @Html.DisplayFor(model => model.Description)
+                                </dd>
+                            } else {
+                                    <dd class="col-sm-8">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col" style="width:20%;">Auteur</th>
+                                                    <th scope="col" style="width:80%;">Témoignage</th>
+                                                </tr>
+                                            </thead>
+                                            <tbdody>
+                                            @{
+                                                List<Report> reportList = ViewBag.testimonies;
+                                                foreach(Report r in reportList) {
+                                                    <tr>
+                                                        <td>@r.Person.FirstName @r.Person.LastName</td>
+                                                        <td>@r.Description</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            </tbdody>
+                                        </table>
+                                    </dd>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .accordion-button.collapsed::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    }
+
+    .accordion-button:not(.collapsed)::after {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23fff'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+</style>

@@ -1,0 +1,35 @@
+﻿.labelProtections {
+    border: 1px solid #fff;
+    padding: 10px;
+    display: block;
+    position: relative;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    width: 220px;
+}
+
+.checkboxProtections {
+    display: none;
+}
+
+.labelProtections img {
+    height: 200px;
+    width: 200px;
+    transition-duration: 0.2s;
+    transform-origin: 50% 50%;
+}
+
+:checked + .labelProtections {
+    background-color:green;
+}
+
+:checked + .labelProtections img {
+    transform: scale(0.9);
+    box-shadow: 0 0 5px #333;
+    z-index: -1;
+}

@@ -1,0 +1,95 @@
+﻿.containerLocation {
+    position: relative;
+    height: 588px;
+    width: 1022px;
+}
+
+.dissolve {
+    opacity: 0.25;
+    height: 588px;
+    width: 1022px;
+}
+
+.containerLocation > div {
+    position: absolute;
+    background-image: url("../img/plan.jpg");
+}
+
+.containerLocation .bg-image {
+    opacity: 0.75;
+    height: 588px;
+    width: 1022px;
+}
+
+.highlight-region {
+    opacity: 0;
+    cursor: crosshair;
+}
+
+.containerLocation div.highlight-region:hover {
+    opacity: 1;
+}
+
+.clicked-highlight-region {
+    opacity: 1;
+}
+
+.non-clicked-highlight-region {
+    opacity: 0;
+}
+
+.bg-image-clicked {
+    opacity: 0.25;
+    height: 588px;
+    width: 1022px;
+}
+
+.line_style_one {
+    height: 80px;
+    width: 515px;
+}
+
+.line_style_two {
+    height: 80px;
+    width: 515px;
+}
+
+.line_style_three {
+    height: 90px;
+    width: 515px;
+}
+
+.line_style_four {
+    height: 75px;
+    width: 725px;
+}
+
+.style_open_hall {
+    height: 230px;
+    width: 225px;
+}
+
+.style_box_office {
+    height: 110px;
+    width: 80px;
+}
+
+.style_parking_top {
+    height: 70px;
+    width: 1010px;
+}
+
+.style_parking_left {
+    height: 340px;
+    width: 150px;
+}
+
+.style_parking_bottom {
+    height: 160px;
+    width: 1010px;
+}
+
+.show {
+    opacity: 1;
+    background-color: blue;
+}

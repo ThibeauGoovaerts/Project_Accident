@@ -1,0 +1,33 @@
+﻿@model WebApplication4.Models.Accident
+
+<!-- Start Victim's Activity -->
+
+<div class="row form-group">
+    <div class="d-md-flex">
+        <div class="col-md-8">
+            La victime occupait-elle sa fonction habituelle ?
+        </div>
+        <div class="col-md-4 ps-5">
+            <label>Non</label>
+            <label class="toggleSwitch">
+                <input class="tabulation_needed" value="true" name="UsualFunction" id="UsualFunction" type="checkbox" onchange="saveLocally('UsualFunction')" checked />
+                <span class="slider"></span>
+            </label>
+            <label for="UsualFunction"><p>Oui</p></label>
+        </div>
+
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="d-md-flex">
+        <div class="col-lg-6">
+            Précisez l'activité de la victime au moment de l'accident :
+        </div>
+        <div class="col-lg-6">
+            <textarea id="victimActivity" name="ActivityDuringAccident" class="form-control tabulation_needed necessaryField" onfocusout="saveLocally('victimActivity')"></textarea>
+        </div>
+    </div>
+</div>
+
+<!-- End Victim's Activity -->

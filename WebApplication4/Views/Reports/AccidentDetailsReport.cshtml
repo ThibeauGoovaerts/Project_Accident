@@ -1,0 +1,175 @@
+﻿@model WebApplication4.Models.Report
+
+
+<div class="row justify-content-center">
+    <dt class="col-sm-4">
+        Date de l'accident :
+    </dt>
+    <dd class="col-sm-4">
+        @Html.DisplayFor(model => model.Accident.AccidentDateTime)
+    </dd>
+</div>
+<div class="row justify-content-center">
+    <dt class="col-sm-4">
+        Réaction immédiate après l'accident :
+    </dt>
+    <dd class="col-sm-4">
+        @Html.DisplayFor(model => model.Accident.Reaction)
+    </dd>
+</div>
+
+<hr class="col-sm-10" />
+
+<div class="row justify-content-center">
+    <dt class="col-sm-4">
+        Lieu de l'accident :
+    </dt>
+    <dd class="col-sm-4">
+        @Html.DisplayFor(model => model.Accident.Location.Label)
+    </dd>
+</div>
+
+@{
+    if (Model.Accident.LocationDetail != null) {
+        <div class="row justify-content-center">
+            <dt class="col-sm-4">
+                Précisions sur le lieu de l'accident :
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.Accident.LocationDetail)
+            </dd>
+        </div>
+    }
+}
+
+@{
+    Accident accident = ViewBag.accident;
+    if (accident.Gravity == -1)
+    {
+        <hr class="col-sm-10" />
+
+        <div class="row justify-content-center">
+            <dt class="col-sm-4">
+                Probabilité d'occurence :
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.Accident.Probability) %
+            </dd>
+        </div>
+        <div class="row justify-content-center">
+            <dt class="col-sm-4">
+                Gravité des pertes :
+            </dt>
+            <dd class="col-sm-4">
+                @Html.DisplayFor(model => model.Accident.Gravity) %
+            </dd>
+        </div>
+
+
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Déviation(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < accident.DeviationDetails.Count; i++) {
+                                <tr>
+                                    <td>@accident.DeviationDetails.ToArray()[i].Label</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Agent(s) matériel(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < accident.MaterialAgentDetails.Count; i++) {
+                                <tr>
+                                    <td>@accident.MaterialAgentDetails.ToArray()[i].Label</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cause(s) fondamentale(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < accident.FundamentaryCauses.Count; i++) {
+                                <tr>
+                                    <td>@accident.FundamentaryCauses.ToArray()[i].Label</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mesure(s) appliquée(s) directement</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < accident.DirectMesures.Count; i++) {
+                                <tr>
+                                    <td>@accident.DirectMesures.ToArray()[i].Label</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-sm-10">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Mesure(s) proposée(s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            for (int i = 0; i < accident.ProposedMesureDetails.Count; i++) {
+                                <tr>
+                                    <td>@accident.ProposedMesureDetails.ToArray()[i].Label</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}

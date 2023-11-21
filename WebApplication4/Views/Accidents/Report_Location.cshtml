@@ -1,0 +1,33 @@
+﻿@model WebApplication4.Models.Accident
+
+<link rel="stylesheet" href="~/css/location.css" asp-append-version="true" />
+
+@{
+    ViewData["Title"] = "Location";
+}
+
+<div class="form-group">
+    <h3>Sélectionnez l'endroit de l'accident: <h4 id="locationLabel"></h4></h3>  
+    <div class="containerLocation" style="margin: 15px;">
+        <div class="bg-image"></div>
+        <div class="@ViewBag.Locations[1].ID highlight-region line_style_one" id="@ViewBag.Locations[1].Label" style="top:180px;left:410px;background-position: -410px -180px;"></div>
+        <div class="@ViewBag.Locations[2].ID highlight-region line_style_two" id="@ViewBag.Locations[2].Label" style="top:260px;left:410px;background-position: -410px -260px;"></div>
+        <div class="@ViewBag.Locations[3].ID highlight-region line_style_three" id="@ViewBag.Locations[3].Label" style="top:330px;left:410px;background-position: -410px -330px;"></div>
+        <div class="@ViewBag.Locations[0].ID highlight-region line_style_four" id="@ViewBag.Locations[0].Label" style="top:100px;left:190px;background-position: -190px -100px;"></div>
+        <div class="@ViewBag.Locations[4].ID highlight-region style_open_hall" id="@ViewBag.Locations[4].Label" style="top:190px;left:180px;background-position: -180px -190px;"></div>
+        <div class="@ViewBag.Locations[7].ID highlight-region style_box_office" id="@ViewBag.Locations[7].Label" style="top:100px;left:935px;background-position: -935px -100px;"></div>
+        <div class="@ViewBag.Locations[6].ID highlight-region style_box_office" id="@ViewBag.Locations[6].Label" style="top:200px;left:930px;background-position: -930px -200px;"></div>
+        <div class="@ViewBag.Locations[5].ID highlight-region style_box_office" id="@ViewBag.Locations[5].Label" style="top:310px;left:935px;background-position: -935px -310px;"></div>
+        <div class="@ViewBag.Locations[8].ID highlight-region style_parking_top parking_class" id="@ViewBag.Locations[8].Label" style="top:15px;left:35px;background-position: -35px -15px;"></div>
+        <div class="@ViewBag.Locations[8].ID highlight-region style_parking_left parking_class" id="@ViewBag.Locations[8].Label" style="top:85px;left:35px;background-position: -35px -85px;"></div>
+        <div class="@ViewBag.Locations[8].ID highlight-region style_parking_bottom parking_class" id="@ViewBag.Locations[8].Label" style="top:425px;left:35px;background-position: -35px -425px;"></div>
+    </div>
+    <input type="number" asp-for="LocationID" id="viewBagLocationID" class="form-control necessaryField" asp-items="ViewBag.LocationID" style="display: none;"/>
+    <span asp-validation-for="LocationID" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="LocationDetail" class="control-label">Detail sur l'endroit de l'accident</label>
+    <textarea asp-for="LocationDetail" class="form-control tabulation_needed necessaryField" style="width: 1020px; height: 42px; font-size: 20px;" onfocusout="saveLocally('LocationDetail')"></textarea>
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/js/location.js")"></script>

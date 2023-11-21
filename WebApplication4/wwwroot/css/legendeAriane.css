@@ -1,0 +1,28 @@
+﻿.tooltip-text {
+    visibility: hidden;
+    position: absolute;
+    z-index: 1;
+    width: 200px;
+    color: white;
+    font-size: 20px;
+    background-color: #192733;
+    border-radius: 10px;
+    text-align: start;
+}
+
+.hover-text:hover .tooltip-text {
+    visibility: visible;
+}
+
+#bottomSpanTooltip {
+    top: 2em;
+    right: 25%; 
+}
+
+.hover-text {
+    position: relative;
+    display: inline-block;
+    font-family: Avenir;
+    text-align: center;                                                                                                                                                                                                                                                                                                                                                         
+
+}

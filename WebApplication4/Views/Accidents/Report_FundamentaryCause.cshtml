@@ -1,0 +1,23 @@
+﻿@model WebApplication4.Models.Accident
+
+<link rel="stylesheet" href="~/css/checkboxStyleButton.css" asp-append-version="true" />
+
+<div class="form-group">
+    <h5 class="">Quelles sont les causes fondamentales qui ont conduit à l'accident ? </h5>
+    @foreach (FundamentaryCause item in ViewBag.FundamentaryCauses) {
+        <div class="card">
+            <input class="btn-check tabulation_needed necessaryField check-Causes" name="FundamentaryCausesChecked" type="checkbox" value="@item.Label" id="@item.Label" onchange="saveLocallyCustom(this.id, 'cause')" onclick="changeIsNecessaryCheckoxList('check-Causes')">
+            <label class="btn btn-outline-secondary card-body" for="@item.Label"> @item.Label </label>
+        </div>
+    }
+    <div class="card">
+        <input class="btn-check card-body tabulation_needed" name="fundamentaryCausesOther" type="checkbox" id="fundamentaryCausesOther" onclick="changeOrganisationVisibility(); changeIsNecessaryCheckoxList('check-Causes'); changeIsNecessary(['organisationOther'])">
+        <label class="btn btn-outline-secondary card-body" for="fundamentaryCausesOther" style="width:100%; text-align: center;margin:auto; padding:15px"> Remarque complémentaire </label>
+    </div>
+    <div id="organisationInput" class="d-md-flex invisible card">
+        <input type="text" class="card-body container-other tabulation_needed" name="textAreaOrganisation" cols="40" rows="2" id="organisationOther">
+        <div id="resultOrganisation" class="result d-none"></div>
+    </div>
+</div>
+
+<script type="text/javascript" src="@Url.Content("~/js/fundamentaryCauses.js")"></script>

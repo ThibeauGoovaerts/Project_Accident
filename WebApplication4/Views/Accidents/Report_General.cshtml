@@ -1,0 +1,240 @@
+﻿@model WebApplication4.Models.Accident
+<!-- Start General Informations -->
+
+<div class="row form-group">
+    <div class="d-md-flex">
+        <label for="LastnameOfVictim" class="form-label col-md-6">Nom de la victime:</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control tabulation_needed necessaryField" id="LastnameOfVictim" name="Lastname" placeholder="" value="" required onKeyUp="autocompleteName(this.value, this.name, this.id)" onfocusout="saveLocally('LastnameOfVictim')">
+            <div id="resultLastname" class="result d-none"></div>
+        </div>
+    </div>
+</div>
+<br />
+
+<div class="row form-group">
+    <div class="d-md-flex">
+        <label for="FirstnameOfVictim" class="form-label col-md-6">Prénom de la victime:</label>
+        <div class="col-sm-6">
+            <input type="text" class="form-control tabulation_needed necessaryField" id="FirstnameOfVictim" name="Firstname" placeholder="" value="" required onKeyUp="autocompleteName(this.value, this.name, this.id)" onfocusout="saveLocally('FirstnameOfVictim')">
+            <div id="resultFirstname" class="result d-none"></div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="col-md-8">
+        La victime fait-elle partie d'un organisme extérieur ?  
+        <div class="hover-text">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+            </svg>
+            <span class="tooltip-text" id="bottomSpanTooltip">
+                <p style="list-style: none;">
+                    La victime travaille-t-elle dans l'usine où a eu lieu l'accident?
+                </p>
+            </span>
+        </div>
+    </div>
+
+    <div class="col-md-4 ps-5">
+        <label>Non</label>
+        <label class="toggleSwitch">
+            <input class="tabulation_needed" type="checkbox" id="externalCheck" value="false" name="isExternal" onclick="changeFirmVisibility(); changeIsNecessary(['externalFirm','externalCheck'])" onchange="saveLocally('externalCheck')" />
+            <span class="slider"></span>
+        </label>
+        <label for="externalCheck"><p>Oui</p></label>
+    </div>
+</div>
+<br />
+
+<div id="firmInput" class="row d-none">
+    <div class="d-md-flex">
+        <div class="col-md-6">
+            Nom de la firme extérieure :
+        </div>
+        <div class="col-md-6">
+            <input type="text" class="form-control tabulation_needed" id="externalFirm" placeholder="" value="" name="ExternalFirmName" onKeyUp="autoCompleteFirm(this.value)" onfocusout="saveLocally('externalFirm')">
+            <div id="resultFirm" class="result d-none"></div>
+        </div>
+    </div>
+</div>
+
+<br />
+<div class="row">
+    <div class="d-md-flex">
+        <div class="col-md-6">
+            Précisez la date et l'heure de l'accident :
+        </div>
+        <div class="col-md-6 text-center">
+            @{
+                string valToday = DateTime.Now.ToString("yyyy-MM-ddTHH:mm");
+                <input asp-for="AccidentDateTime" id="AccidentDateTime" name="AccidentDateTime" type="datetime-local" value="@valToday" min="1970-01-01T00:01" max="@valToday" class="form-control tabulation_needed" onfocusout="saveLocally('AccidentDateTime')" />
+            }
+        </div>
+    </div>
+</div>
+<br />
+
+<!-- End General Infroamtions -->
+
+<style>
+    .result {
+        border: 1px dotted #ccc;
+        padding: 3px;
+    }
+
+    .result ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .result ul li {
+        padding: 5px 0;
+    }
+
+    .result ul li:hover {
+        background: #007bff;
+        color: white;
+        font-weight: bold;
+    }
+
+</style>
+
+<script>
+    var search_terms_name = @Html.Raw(ViewData["personsList"]);
+    var search_terms_firms = @Html.Raw(ViewData["firmsList"]);
+
+    search_terms_name = search_terms_name.map(element => {
+        return element.toLowerCase();
+    })
+
+    let search_terms_lastname = new Array();
+    let search_terms_firstname = new Array();
+
+    for(let i=0; i<search_terms_name.length; i++){
+        search_terms_lastname[i] = search_terms_name[i].split(":")[0];
+        search_terms_firstname[i] = search_terms_name[i].split(":")[1];
+    }
+
+    search_terms_firms = search_terms_firms.map(element => {
+        return element.toLowerCase();
+    })
+
+    function changeFirmVisibility() {
+        let element = document.getElementById("firmInput");
+        let checkbox = document.getElementById("externalCheck");
+        if (checkbox.checked) {
+            element.classList.remove("d-none");
+        } else {
+            element.classList.add("d-none");
+        }
+    }
+
+    function autocompleteMatch(input, terms) {
+        if (input == "") {
+            return [];
+        }
+        input = input.toLowerCase();
+        var reg = new RegExp(input)
+        return terms.filter(function (term) {
+            if (term.match(reg)) {
+                return term;
+            }
+        });
+    }
+
+    function hideResults(elToHide) {
+        let verifTab = document.getElementById("auto-comp");
+        let resultEl = document.getElementById("result" + elToHide);
+        resultEl.classList.add("d-none");
+        if (verifTab !== null) {
+            verifTab.remove();
+        }
+    }
+
+    function initTabResults(val) {
+        hideResults(val);
+        let res = document.getElementById("result" + val);
+        res.classList.remove("d-none");
+        let tab = res.appendChild(document.createElement("ul"));
+        tab.setAttribute("id", "auto-comp");
+
+        return tab;
+    }
+
+
+    function autoCompleteFirm(val) {
+        let tab = initTabResults("Firm");
+        let terms = autocompleteMatch(val, search_terms_firms);
+        let inputValue = document.getElementById("externalFirm");
+
+        for (i = 0; i < terms.length; i++) {
+            var item = document.createElement("li");
+            item.innerHTML = terms[i];
+            item.setAttribute("class", "auto-comp-el");
+            item.addEventListener("click", event => {
+                inputValue.value = item.innerHTML;
+                hideResults("Firm");
+                tab.remove();
+            });
+            tab.appendChild(item);
+        }
+
+        document.addEventListener("click", function (e) {
+            hideResults("Firm");
+        });
+
+    }
+
+    function autocompleteName(val, name, id) {
+        let tab = initTabResults(name);
+        let terms = autocompleteMatch(val, search_terms_name);
+        
+        let check = document.getElementById("externalCheck");
+
+        if (terms.length == 0 && val != "") {
+            if (!check.checked){
+                check.click()
+                check.disabled = true;
+            }
+        } else {
+            if (check.checked){
+                check.click();
+                check.disabled = false;
+            }
+        }
+
+        let inputValue = document.getElementById(id);
+        for (i = 0; i < terms.length; i++) {
+            var item = document.createElement("li");
+            item.innerHTML = terms[i].replace(":", " ");
+            item.setAttribute("class", "auto-comp-el");
+            tab.appendChild(item);
+        }
+
+        document.querySelectorAll(".auto-comp-el").forEach(item => {
+            item.addEventListener("click", event => {
+                let name = item.innerHTML;
+                inputValue = document.getElementById("LastnameOfVictim");
+                inputValue.value = name.split(" ")[0];
+                inputValue = document.getElementById("FirstnameOfVictim");
+                inputValue.value = name.split(" ")[1];
+                hideResults("Lastname");
+                hideResults("Firstname");
+                tab.remove();
+                saveLocally('LastnameOfVictim');
+                saveLocally('FirstnameOfVictim');
+            });
+        });
+
+        document.addEventListener("click", function (e) {
+            hideResults("Lastname");
+            hideResults("Firstname");
+        });
+    }
+
+</script>
